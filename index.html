@@ -329,7 +329,8 @@ section.first {
   text-transform: none;
   margin-left: 6px;
 }
-.field input {
+.field input,
+.field textarea {
   width: 100%;
   padding: 16px 18px;
   background: var(--bg-2);
@@ -340,11 +341,18 @@ section.first {
   font-size: 17px;
   transition: border-color .2s ease;
 }
-.field input:focus {
+.field textarea {
+  min-height: 96px;
+  resize: vertical;
+  line-height: 1.5;
+}
+.field input:focus,
+.field textarea:focus {
   outline: none;
   border-color: var(--accent);
 }
-.field input::placeholder {
+.field input::placeholder,
+.field textarea::placeholder {
   color: var(--fg-dim);
   opacity: 0.6;
 }
@@ -532,6 +540,11 @@ footer a:hover { color: var(--fg); }
         <div class="field">
           <label for="city">Město nebo PSČ <span class="opt">(volitelné — pro regionální statistiky)</span></label>
           <input id="city" name="city" type="text" placeholder="Praha / 110 00">
+        </div>
+
+        <div class="field">
+          <label for="message">Co byste jako fanoušek rád změnil? <span class="opt">(volitelné)</span></label>
+          <textarea id="message" name="message" rows="3" placeholder="Napište nám pár slov…"></textarea>
         </div>
 
         <label class="checkbox">
