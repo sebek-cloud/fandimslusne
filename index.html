@@ -53,16 +53,16 @@
   src: url('fonts/HelveticaNeueLTStd-Blk.otf') format('opentype');
   font-weight: 900; font-style: normal; font-display: swap;
 }
-/* České glyfy chybějící v HelveticaNeueLTStd → fallback na CE-BOLD */
+/* České glyfy chybějící v HelveticaNeueLTStd → fallback na stejnou rodinu Neue (Pro Black) */
 @font-face {
   font-family: 'HelveticaBody';
-  src: url('fonts/HELVETICACE-BOLD.OTF') format('opentype');
+  src: url('fonts/HelveticaNeueLTPro-Blk.otf') format('opentype');
   font-weight: 700; font-style: normal; font-display: swap;
   unicode-range: U+010C-010F, U+011A-011B, U+0147-0148, U+0158-0159, U+0164-0165, U+016E-016F;
 }
 @font-face {
   font-family: 'HelveticaBody';
-  src: url('fonts/HELVETICACE-BOLD.OTF') format('opentype');
+  src: url('fonts/HelveticaNeueLTPro-Blk.otf') format('opentype');
   font-weight: 900; font-style: normal; font-display: swap;
   unicode-range: U+010C-010F, U+011A-011B, U+0147-0148, U+0158-0159, U+0164-0165, U+016E-016F;
 }
@@ -97,9 +97,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* ============ LAYOUT ============ */
 .wrap {
   width: 100%;
-  max-width: 720px;
+  max-width: 960px;
   margin: 0 auto;
   padding: 0 28px;
+}
+.wrap--narrow {
+  max-width: 720px;
 }
 section {
   padding: 90px 0;
