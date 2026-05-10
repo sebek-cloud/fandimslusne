@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+
+# Node
+node_modules/
+
+# Vercel
+.vercel
+
+# Env files
+.env
+.env.*
+!.env.example
+
+# Editor / OS
+Thumbs.db
+*.swp
+.idea/
+.vscode/
