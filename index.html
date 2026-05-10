@@ -98,16 +98,10 @@ section.first {
 }
 
 /* ============ 1. HEADLINE ============ */
-.headline .wrap {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 56px;
-  align-items: center;
-}
 .headline h1 {
   font-family: var(--display);
   font-weight: 700;
-  font-size: clamp(56px, 9vw, 104px);
+  font-size: clamp(56px, 10vw, 112px);
   line-height: 0.98;
   letter-spacing: -0.03em;
   text-transform: uppercase;
@@ -122,23 +116,14 @@ section.first {
   font-size: 19px;
   color: var(--fg-dim);
   line-height: 1.5;
-}
-.hero-right {
-  display: flex;
-  justify-content: flex-end;
-}
-@media (max-width: 800px) {
-  .headline .wrap {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  .hero-right { justify-content: flex-start; }
+  max-width: 560px;
 }
 .hero-actions {
-  margin-top: 36px;
+  margin-top: 40px;
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
+  align-items: center;
 }
 .btn {
   display: inline-flex;
@@ -173,21 +158,22 @@ section.first {
   color: var(--bg);
 }
 
-/* ============ COUNTER (in-hero, framed card) ============ */
+/* ============ COUNTER (in-hero, horizontal bar) ============ */
 .hero-counter {
-  padding: 32px 36px;
+  margin-top: 56px;
+  padding: 24px 32px;
   background: rgba(255, 61, 127, 0.06);
   border: 1px solid rgba(255, 61, 127, 0.22);
-  border-radius: 20px;
-  display: inline-flex;
+  border-radius: 16px;
+  display: flex;
   align-items: center;
-  gap: 24px;
-  max-width: 100%;
+  gap: 28px;
+  flex-wrap: wrap;
 }
 .counter-num {
   font-family: var(--display);
   font-weight: 700;
-  font-size: clamp(56px, 7vw, 88px);
+  font-size: clamp(48px, 6vw, 72px);
   line-height: 1;
   color: var(--accent);
   letter-spacing: -0.025em;
@@ -201,8 +187,9 @@ section.first {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--fg);
-  max-width: 200px;
   line-height: 1.4;
+  flex: 1;
+  min-width: 200px;
 }
 
 /* ============ 3. TEXT ============ */
@@ -468,19 +455,15 @@ footer a:hover { color: var(--fg); }
 <!-- 1. HEADLINE + COUNTER -->
 <section class="headline first">
   <div class="wrap">
-    <div class="hero-left">
-      <h1>Fandím<br><span class="accent">slušně.</span></h1>
-      <p class="lead">Manifest sportovních nadšenců, kteří chtějí kulturu fandění posouvat dopředu.</p>
-      <div class="hero-actions">
-        <a href="#podepsat" class="btn btn-primary">Podepsat manifest →</a>
-        <a href="#manifest" class="btn btn-ghost">Číst manifest</a>
-      </div>
+    <h1>Fandím<br><span class="accent">slušně.</span></h1>
+    <p class="lead">Manifest sportovních nadšenců, kteří chtějí kulturu fandění posouvat dopředu.</p>
+    <div class="hero-actions">
+      <a href="#podepsat" class="btn btn-primary">Podepsat manifest →</a>
+      <a href="#manifest" class="btn btn-ghost">Číst manifest</a>
     </div>
-    <div class="hero-right">
-      <div class="hero-counter">
-        <div class="counter-num" id="counter">2 137</div>
-        <div class="counter-label">Fanoušků z celé ČR<br>už podepsalo</div>
-      </div>
+    <div class="hero-counter">
+      <div class="counter-num" id="counter">2 137</div>
+      <div class="counter-label">Fanoušků z celé ČR už podepsalo</div>
     </div>
   </div>
 </section>
