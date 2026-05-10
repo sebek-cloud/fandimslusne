@@ -105,20 +105,21 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   max-width: 720px;
 }
 section {
-  padding: 90px 0;
+  padding: 72px 0;
   border-top: 1px solid var(--line);
 }
 section.first {
   border-top: none;
-  padding-top: 140px;
+  padding-top: 88px;
+  padding-bottom: 56px;
 }
 
 /* ============ 1. HEADLINE ============ */
 .headline h1 {
   font-family: var(--display);
   font-weight: 700;
-  font-size: clamp(72px, 14vw, 160px);
-  line-height: 1;
+  font-size: clamp(56px, 10vw, 112px);
+  line-height: 0.98;
   letter-spacing: -0.03em;
   text-transform: uppercase;
   padding-top: 0.12em;
@@ -127,22 +128,61 @@ section.first {
   color: var(--accent);
   font-style: italic;
 }
-.headline p {
-  margin-top: 36px;
+.headline .lead {
+  margin-top: 28px;
   font-size: 19px;
   color: var(--fg-dim);
   max-width: 520px;
   line-height: 1.5;
 }
+.hero-actions {
+  margin-top: 36px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 16px 28px;
+  border-radius: 100px;
+  transition: transform .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #141323;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  background: var(--fg);
+}
+.btn-ghost {
+  border: 1.5px solid var(--fg-dim);
+  color: var(--fg);
+}
+.btn-ghost:hover {
+  border-color: var(--fg);
+  background: var(--fg);
+  color: var(--bg);
+}
 
 /* ============ 2. COUNTER ============ */
 .counter-section {
   text-align: center;
+  padding: 56px 0;
 }
 .counter-num {
   font-family: var(--display);
   font-weight: 700;
-  font-size: clamp(112px, 22vw, 240px);
+  font-size: clamp(72px, 13vw, 144px);
   line-height: 0.95;
   color: var(--accent);
   letter-spacing: -0.04em;
@@ -150,7 +190,7 @@ section.first {
   padding-top: 0.12em;
 }
 .counter-label {
-  margin-top: 20px;
+  margin-top: 16px;
   font-family: var(--display);
   font-weight: 700;
   font-size: 13px;
@@ -411,7 +451,11 @@ footer a:hover { color: var(--fg); }
 <section class="headline first">
   <div class="wrap">
     <h1>Fandím<br><span class="accent">slušně.</span></h1>
-    <p>Manifest sportovních nadšenců, kteří chtějí kulturu fandění posouvat dopředu.</p>
+    <p class="lead">Manifest sportovních nadšenců, kteří chtějí kulturu fandění posouvat dopředu.</p>
+    <div class="hero-actions">
+      <a href="#podepsat" class="btn btn-primary">Podepsat manifest →</a>
+      <a href="#manifest" class="btn btn-ghost">Číst manifest</a>
+    </div>
   </div>
 </section>
 
@@ -424,7 +468,7 @@ footer a:hover { color: var(--fg); }
 </section>
 
 <!-- 3. TEXT -->
-<section class="text-section">
+<section id="manifest" class="text-section">
   <div class="wrap">
 
     <div class="eyebrow">Co se nás k tomu přimělo</div>
