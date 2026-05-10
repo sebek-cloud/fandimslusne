@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GDPR — Fandím slušně</title>
+<meta name="description" content="Zásady zpracování osobních údajů — Fandím slušně.">
+<meta name="theme-color" content="#141323">
+<link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+<meta name="robots" content="index, follow">
+
+<style>
+/* ============ FONTS ============ */
+@font-face {
+  font-family: 'HelveticaDisplay';
+  src: url('fonts/HELVETICACE-BOLD.OTF') format('opentype');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'HelveticaDisplay';
+  src: url('fonts/HELVETICACE-MEDIUM.OTF') format('opentype');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'HelveticaBody';
+  src: url('fonts/HelveticaNeueLTStd-Bd.otf') format('opentype');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'HelveticaBody';
+  src: url('fonts/HelveticaNeueLTPro-Blk.otf') format('opentype');
+  font-weight: 700; font-style: normal; font-display: swap;
+  unicode-range: U+010C-010F, U+011A-011B, U+0147-0148, U+0158-0159, U+0164-0165, U+016E-016F;
+}
+
+:root {
+  --bg: #141323;
+  --bg-2: #1E1C36;
+  --fg: #F2F0EA;
+  --fg-dim: #9A98B8;
+  --accent: #FF3D7F;
+  --line: rgba(242, 240, 234, 0.12);
+  --display: 'HelveticaDisplay', Helvetica, Arial, sans-serif;
+  --body: 'HelveticaBody', 'HelveticaDisplay', Helvetica, Arial, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--body);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+a { color: inherit; text-decoration: none; }
+
+.wrap {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.page {
+  padding: 100px 0 60px;
+}
+
+.back-link {
+  display: inline-block;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  margin-bottom: 40px;
+  transition: color .2s ease;
+}
+.back-link:hover { color: var(--accent); }
+
+h1 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(56px, 9vw, 96px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  padding-top: 0.12em;
+  margin-bottom: 16px;
+}
+.lead {
+  font-size: 19px;
+  color: var(--fg-dim);
+  max-width: 520px;
+  margin-bottom: 16px;
+}
+.effective {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 10px 16px;
+  background: rgba(255, 61, 127, 0.08);
+  border: 1px solid rgba(255, 61, 127, 0.3);
+  border-radius: 100px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+article {
+  padding: 60px 0 80px;
+}
+
+h2 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(22px, 3vw, 28px);
+  line-height: 1.15;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  margin-top: 56px;
+  margin-bottom: 20px;
+  padding-top: 0.08em;
+  color: var(--fg);
+}
+article > h2:first-child {
+  margin-top: 0;
+}
+
+article p {
+  margin-bottom: 18px;
+  color: var(--fg);
+}
+article p:last-child { margin-bottom: 0; }
+
+article a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+article ul, article ol {
+  margin: 0 0 20px 0;
+  padding-left: 24px;
+}
+article li {
+  margin-bottom: 8px;
+  color: var(--fg);
+}
+article li::marker {
+  color: var(--accent);
+}
+article ul ul {
+  margin-top: 10px;
+  margin-bottom: 14px;
+}
+
+article strong {
+  color: var(--fg);
+  font-weight: 700;
+}
+
+footer {
+  padding: 36px 28px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--fg-dim);
+  text-align: center;
+}
+footer a {
+  color: var(--fg-dim);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+footer a:hover { color: var(--fg); }
+
+@media (max-width: 600px) {
+  .wrap { padding: 0 20px; }
+  .page { padding: 80px 0 40px; }
+  h2 { margin-top: 44px; }
+}
+</style>
+</head>
+<body>
+
+<main>
+
+<section class="page">
+  <div class="wrap">
+    <a href="/" class="back-link">← Zpět na manifest</a>
+    <h1>GDPR</h1>
+    <p class="lead">Zásady zpracování osobních údajů.</p>
+    <div class="effective">Účinnost: 20. 3. 2026</div>
+  </div>
+</section>
+
+<article>
+  <div class="wrap">
+
+    <h2>Základní ustanovení</h2>
+    <p>Offseason culture z.s., IČO: 240 41 343, se sídlem Krocínova 333/3, Praha 1 – Staré Město, PSČ 110 00, zapsaná ve spolkovém rejstříku vedeném Městským soudem v Praze, oddíl L, vložka 81374, (dále jen „správce") jako správce zpracovává vaše osobní údaje. Při zpracování vašich osobních údajů dbá správce na soulad s právem Evropské unie, zejména na soulad s Nařízením Evropského parlamentu a Rady (EU) 2016/679 ze dne 27. dubna 2016 o ochraně fyzických osob v souvislosti se zpracováním osobních údajů a o volném pohybu těchto údajů a o zrušení směrnice 95/46/ES (obecné nařízení o ochraně osobních údajů, dále jen „GDPR"), které nabylo účinnosti dnem 25. května 2018 jako přímo účinná právní norma i v rámci právního řádu České republiky, a na soulad s relevantními vnitrostátními právními předpisy, zejména zákonem o ochraně osobních údajů. Správce zpracovává vaše osobní údaje za účelem své činnosti, která spočívá ve sdružování učitelů tělesné výchovy, trenérů, lektorů a instruktorů z celé České republiky.</p>
+
+    <p>Tyto Zásady zpracování osobních údajů se vztahují na (i) zpracování osobních údajů prováděné správcem během Vašeho používání webových stránek <a href="https://www.offseason.cz" target="_blank" rel="noopener">www.offseason.cz</a> („Webové stránky"), (ii) zpracování osobních údajů prováděné správcem během komunikace s Vámi prostřednictvím e-mailu či telefonu, (iii) zpracování osobních údajů ze strany správce během trvání členství ve spolku, (iv) zpracování osobních údajů při plnění právních povinností správce, na (v) zpracování osobních údajů, jež je nezbytné pro účely ochrany oprávněných zájmů správce a (vi) zpracování osobních údajů ze strany správce při účasti na správcem pořádaných akcích.</p>
+
+    <p>Osobními údaji se rozumí veškeré informace o identifikované nebo identifikovatelné fyzické osobě; identifikovatelnou fyzickou osobou je fyzická osoba, kterou lze přímo či nepřímo identifikovat, zejména odkazem na určitý identifikátor, například jméno, identifikační číslo, lokační údaje, síťový identifikátor nebo na jeden či více zvláštních prvků fyzické, fyziologické, genetické, psychické, ekonomické, kulturní nebo společenské identity této fyzické osoby.</p>
+
+    <h2>II. Zdroje a kategorie zpracovávaných osobních údajů</h2>
+    <p>Správce zpracovává za účelem plnění splnění svého závazku, právních povinností, zasílání sdělení a nabídky produktů a služeb pro členy spolku a veřejnost a to tyto základní osobní údaje:</p>
+    <ul>
+      <li>Identifikační údaje: titul, jméno, příjmení, datum narození</li>
+      <li>Kontaktní údaje: adresa trvalého pobytu, doručovací nebo jiná korespondenční adresa, telefonní číslo, e-mailová adresa</li>
+      <li>Informace o činnosti: informace o členství a účasti člena na akcích pořádaných spolkem, záznamy vzájemné komunikace, dosažená kvalifikace apod.</li>
+      <li>Fotografie a video záznamy</li>
+    </ul>
+    <p>Správce zpracovává další údaje, které souvisí s plněním svých závazků, právních povinností a zasílání sdělení a nabídky produktů a služeb pro členy spolku a veřejnost, případně údaje, které správci poskytnete.</p>
+    <p>Výše uvedené osobní údaje správce získává od členů tak, že mu je dobrovolně poskytnete a/nebo je získá na základě plnění uzavřeného vztahu, který by bez těchto údajů nemohl splnit. Vždy je zřejmé, které osobní údaje jsou nezbytně nutné poskytnout správci pro plnění závazků a které osobní údaje jsou dobrovolné, kdy tyto dobrovolné údaje mohou sloužit pro zlepšení kvality a efektivity poskytovaných služeb, případně zaslání nabídky a pro zjednodušení komunikace.</p>
+    <p>Osobní údaje jsou správcem zpracovávány jak manuálně, tak automatizovaně. K automatizovanému zpracování osobních údajů dochází zejména pro účely plnění vztahu a nabízení služeb.</p>
+
+    <h2>III. Zákonný důvod a účel zpracování osobních údajů</h2>
+    <p>Zákonným důvodem zpracování osobních údajů je:</p>
+    <ul>
+      <li>plnění závazku mezi členem spolku a správcem podle čl. 6 odst. 1 písm. b) GDPR;</li>
+      <li>oprávněný zájem správce na poskytování prezentace správce (zejména zasílání newsletterů, nabídek) podle čl. 6 odst. 1 písm. f) GDPR;</li>
+      <li>souhlas se zpracováním pro účely poskytování prezentace správce akcí (zejména pro zasílání newsletterů, nabídek) podle čl. 6 odst. 1 písm. a) GDPR.</li>
+    </ul>
+    <p>Účelem zpracování osobních údajů je:</p>
+    <ul>
+      <li>splnění závazku, výkon práv a povinností vyplývajících ze vztahu mezi členem spolku a správcem; při vzniku vztahu jsou vyžadovány osobní údaje, které jsou nutné pro úspěšný vznik vztahu (jméno a adresa, kontakt), poskytnutí osobních údajů je nutným požadavkem pro uzavření a plnění dohod, bez poskytnutí osobních údajů není možné dohodu uzavřít či ji ze strany správce plnit;</li>
+      <li>zasílání newsletterů, nabídek a činění dalších aktivit;</li>
+      <li>prezentace spolku a členů na webových stránkách a dalších portálech.</li>
+    </ul>
+    <p>Ze strany správce dochází k automatickému individuálnímu rozhodování ve smyslu čl. 22 GDPR. S takovým zpracováním jste poskytl/a svůj výslovný souhlas.</p>
+
+    <h2>Doba uchovávání údajů</h2>
+    <p>Správce uchovává osobní údaje</p>
+    <ul>
+      <li>po dobu nezbytnou k výkonu práv a povinností vyplývajících ze vztahu mezi Vámi a správcem a uplatňování nároků z těchto vztahů (po dobu 2 let od ukončení vztahu).</li>
+      <li>po dobu, než je odvolán souhlas se zpracováním osobních údajů pro účely marketingu, nejdéle 2 let, jsou-li osobní údaje zpracovávány na základě souhlasu.</li>
+    </ul>
+    <p>Po uplynutí doby uchovávání osobních údajů správce osobní údaje vymaže.</p>
+    <p>Bude-li správce zpracovávat Vaše osobní údaje na základě Vašeho souhlasu, po jeho odvolání nebude správce Vaše osobní údaje nadále zpracovávat.</p>
+
+    <h2>Příjemci osobních údajů (subdodavatelé správce)</h2>
+    <p>Za účelem plnění smluvního vztahu a poskytování dalších služeb správcem může správce předat Vaše osobní údaje Příjemci osobních údajů, kterými jsou tyto osoby:</p>
+    <ul>
+      <li>generální partner a hlavním partnerům, kteří jsou uvedeny na webových stránkách <a href="https://www.offseason.cz" target="_blank" rel="noopener">www.offseason.cz</a>;</li>
+      <li>společnosti Offseason s.r.o., IČO: 237 97355, se sídlem Krocínova 333/3, Praha 1</li>
+    </ul>
+    <p>Osobní údaje budou správcem předány dalším osobám pouze na základě povinnosti uložené mu ze zákona nebo pravomocné rozhodnutí státního nebo samosprávného orgánu nebo rozhodnutí soudu či orgánu činného v trestním řízení.</p>
+    <p>Správce nemá v úmyslu předat osobní údaje do třetí země (do země mimo EU) nebo mezinárodní organizaci.</p>
+
+    <h2>Osobní údaje třetích osob</h2>
+    <p>Osobní údaje třetích osob, jimiž se rozumí osobní údaje zaměstnanců a členů správce a dalších fyzických osob podílejících se na spolupráci se správcem, popř. jiné údaje, které správce obdrží od člena v souvislosti s právním vztahem správce a člena, budou zpracovány v souladu s platnými právními předpisy v oblasti ochrany osobních údajů. Tyto osobní údaje použije správce za účelem plnění závazků se členy. Správce bude zpracovávat osobní údaje třetích osob po dobu trvání vztahu se členem a dále po dobu stanovenou zvláštními právními předpisy, jsou-li takové. Po delší dobu budou pak uchovávány, pokud vznikne v odůvodněném případě potřeba uchovávat údaje v souvislosti s konkrétním případem.</p>
+
+    <h2>VII. Vaše práva</h2>
+    <p>Za podmínek stanovených v GDPR máte:</p>
+    <ul>
+      <li><strong>právo na přístup ke svým osobním údajům</strong> dle čl. 15 GDPR — Chcete-li vědět, jestli správce zpracovává osobní údaje, máte právo získat informace o tom, jestli jsou Vaše osobní údaje zpracovávány, a pokud tomu tak je, máte také právo k Vašim osobním údajům získat přístup;</li>
+      <li><strong>právo opravu osobních údajů</strong> dle čl. 16 GDPR, popřípadě omezení zpracování dle čl. 18 GDPR — V případě, že si myslíte, že o Vás správce zpracovává nepřesné či neúplné osobní údaje, máte právo požadovat jejich opravu a doplnění. Správce provede opravu či doplnění údajů bez zbytečného odkladu, vždy však s ohledem na technické možnosti;</li>
+      <li><strong>právo na výmaz osobních údajů</strong> dle čl. 17 GDPR — V případě, že požádáte o výmaz, správce vymaže Vaše osobní údaje, pokud:
+        <ul>
+          <li>již nejsou potřebné pro účely, pro které byly shromážděny nebo jinak zpracovány,</li>
+          <li>zpracování je protiprávní,</li>
+          <li>vznesete námitky proti zpracování a neexistují žádné převažující oprávněné důvody pro zpracování Vašich osobních údajů,</li>
+          <li>odpadla zákonná povinnost ke zpracování stanovená právem Evropské unie nebo vnitrostátními právními předpisy.</li>
+        </ul>
+      </li>
+      <li><strong>právo na omezení zpracování osobních údajů</strong> dle čl. 18 GDPR — V případě, že požádáte o omezení zpracování, správce osobní údaje znepřístupní, dočasně odstraní či uchovají anebo provedou jiné úkony zpracování, které budou potřebné pro řádný výkon uplatněného práva.</li>
+      <li><strong>právo na přenositelnost údajů</strong> dle čl. 20 GDPR — V případě, že chcete, aby správce osobní údaje, které o Vás v elektronické formě zpracovává na základě smlouvy nebo souhlasu a které jste jí poskytl(a), předala třetímu subjektu, můžete využít svého práva na přenositelnost údajů. V případě, že by výkonem tohoto práva byly nepříznivě dotčeny práva a svobody jiných osob, správce nebude moci Vaší žádosti vyhovět.</li>
+      <li><strong>právo vznést námitku proti zpracování</strong> dle čl. 21 GDPR — Právo vznést námitku proti zpracování osobních údajů, které jsou zpracovávány pro účely splnění úkolu prováděného ve veřejném zájmu nebo při výkonu veřejné moci nebo pro účely ochrany oprávněných zájmů správce. V případě, že správce neprokáže, že existuje závažný oprávněný důvod pro zpracování, který převažuje nad Vašim zájmem nebo Vašimi právy a svobodami, zpracování na základě námitky ukončí bez zbytečného odkladu.</li>
+      <li><strong>právo odvolat souhlas</strong> se zpracováním písemně nebo elektronicky na adresu nebo email správce <a href="mailto:info@offseason.cz">info@offseason.cz</a> případně prostřednictvím odkazu obsaženého v newsletteru;</li>
+      <li><strong>právo podat stížnost</strong> u Úřadu pro ochranu osobních údajů v případě, že se domníváte, že bylo porušeno Vaše právo na ochranu osobních údajů.</li>
+    </ul>
+
+    <h2>VII. Podmínky zabezpečení osobních údajů</h2>
+    <p>Správce prohlašuje, že přijal veškerá vhodná technická a organizační opatření k zabezpečení osobních údajů.</p>
+    <p>Správce přijal technická opatření k zabezpečení datových úložišť a úložišť osobních údajů v listinné podobě.</p>
+    <p>Správce prohlašuje, že k osobním údajům mají přístup pouze jím pověřené osoby.</p>
+
+    <h2>VIII. Závěrečná ustanovení</h2>
+    <p>Vyplněním a potvrzením formuláře z internetových stránek správce potvrzujete, že jste seznámen/a s podmínkami ochrany osobních údajů a že je v celém rozsahu přijímáte.</p>
+    <p>S těmito podmínkami souhlasíte zaškrtnutím souhlasu prostřednictvím internetového formuláře. Zaškrtnutím souhlasu potvrzujete, že jste seznámen/a s podmínkami ochrany osobních údajů a že je v celém rozsahu přijímáte.</p>
+    <p>Správce je oprávněn tyto podmínky změnit. Novou verzi podmínek ochrany osobních údajů zveřejní na svých internetových stránkách a zároveň Vám zašle novou verzi těchto podmínek na Vaši e-mailovou adresu, kterou jste správci poskytl/a.</p>
+    <p>Tyto podmínky nabývají účinnosti dnem 20. 3. 2026.</p>
+
+  </div>
+</article>
+
+</main>
+
+<footer>
+  © 2026 Fandím slušně · <a href="https://offseason.cz" target="_blank" rel="noopener">offseason.cz</a> · <a href="/gdpr">GDPR</a>
+</footer>
+
+</body>
+</html>
