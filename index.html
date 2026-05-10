@@ -98,10 +98,16 @@ section.first {
 }
 
 /* ============ 1. HEADLINE ============ */
+.headline .wrap {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
 .headline h1 {
   font-family: var(--display);
   font-weight: 700;
-  font-size: clamp(56px, 10vw, 112px);
+  font-size: clamp(56px, 9vw, 104px);
   line-height: 0.98;
   letter-spacing: -0.03em;
   text-transform: uppercase;
@@ -116,6 +122,17 @@ section.first {
   font-size: 19px;
   color: var(--fg-dim);
   line-height: 1.5;
+}
+.hero-right {
+  display: flex;
+  justify-content: flex-end;
+}
+@media (max-width: 800px) {
+  .headline .wrap {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .hero-right { justify-content: flex-start; }
 }
 .hero-actions {
   margin-top: 36px;
@@ -156,13 +173,16 @@ section.first {
   color: var(--bg);
 }
 
-/* ============ COUNTER (in-hero, plain) ============ */
+/* ============ COUNTER (in-hero, framed card) ============ */
 .hero-counter {
-  margin-top: 56px;
-  display: flex;
-  align-items: baseline;
+  padding: 32px 36px;
+  background: rgba(255, 61, 127, 0.06);
+  border: 1px solid rgba(255, 61, 127, 0.22);
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
   gap: 24px;
-  flex-wrap: wrap;
+  max-width: 100%;
 }
 .counter-num {
   font-family: var(--display);
@@ -181,7 +201,7 @@ section.first {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--fg);
-  max-width: 220px;
+  max-width: 200px;
   line-height: 1.4;
 }
 
@@ -448,15 +468,19 @@ footer a:hover { color: var(--fg); }
 <!-- 1. HEADLINE + COUNTER -->
 <section class="headline first">
   <div class="wrap">
-    <h1>Fandím<br><span class="accent">slušně.</span></h1>
-    <p class="lead">Manifest sportovních nadšenců, kteří chtějí kulturu fandění posouvat dopředu.</p>
-    <div class="hero-actions">
-      <a href="#podepsat" class="btn btn-primary">Podepsat manifest →</a>
-      <a href="#manifest" class="btn btn-ghost">Číst manifest</a>
+    <div class="hero-left">
+      <h1>Fandím<br><span class="accent">slušně.</span></h1>
+      <p class="lead">Manifest sportovních nadšenců, kteří chtějí kulturu fandění posouvat dopředu.</p>
+      <div class="hero-actions">
+        <a href="#podepsat" class="btn btn-primary">Podepsat manifest →</a>
+        <a href="#manifest" class="btn btn-ghost">Číst manifest</a>
+      </div>
     </div>
-    <div class="hero-counter">
-      <div class="counter-num" id="counter">2 137</div>
-      <div class="counter-label">Fanoušků z celé ČR<br>už podepsalo</div>
+    <div class="hero-right">
+      <div class="hero-counter">
+        <div class="counter-num" id="counter">2 137</div>
+        <div class="counter-label">Fanoušků z celé ČR<br>už podepsalo</div>
+      </div>
     </div>
   </div>
 </section>
