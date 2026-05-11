@@ -94,7 +94,7 @@ section {
 }
 section.first {
   border-top: none;
-  padding-top: 96px;
+  padding-top: 48px;
   padding-bottom: 80px;
 }
 
@@ -444,11 +444,88 @@ footer a {
 }
 footer a:hover { color: var(--fg); }
 
+/* ============ STICKY HEADER (po scrollu pod hero) ============ */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(20, 19, 35, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+  padding: 12px 0;
+  transform: translateY(-100%);
+  transition: transform .35s ease;
+  will-change: transform;
+}
+body.scrolled-past-hero .site-header {
+  transform: translateY(0);
+}
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.site-header .brand {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--fg);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.site-header .brand .accent {
+  color: var(--accent);
+  font-style: italic;
+}
+.site-header .actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.site-header .btn-mini {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 10px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  border: 1.5px solid transparent;
+  transition: background .2s, color .2s, border-color .2s;
+  white-space: nowrap;
+}
+.site-header .btn-mini.primary {
+  background: var(--accent);
+  color: var(--bg);
+}
+.site-header .btn-mini.primary:hover {
+  filter: brightness(1.05);
+}
+.site-header .btn-mini.ghost {
+  border-color: var(--line);
+  color: var(--fg);
+}
+.site-header .btn-mini.ghost:hover {
+  border-color: var(--fg);
+}
+@media (max-width: 600px) {
+  .site-header .btn-mini.ghost { display: none; }
+  .site-header .btn-mini { font-size: 12px; padding: 9px 14px; }
+  .site-header .brand { font-size: 14px; }
+}
+
 /* ============ RESPONSIVE ============ */
 @media (max-width: 600px) {
   .wrap { padding: 0 20px; }
   section { padding: 48px 0; }
-  section.first { padding-top: 96px; padding-bottom: 32px; }
+  section.first { padding-top: 36px; padding-bottom: 32px; }
   .text-section .points > li {
     grid-template-columns: 56px 1fr;
     gap: 16px;
@@ -463,6 +540,16 @@ footer a:hover { color: var(--fg); }
 </style>
 </head>
 <body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="#" class="brand">Fandíme <span class="accent">slušně.</span></a>
+    <div class="actions">
+      <a href="#manifest" class="btn-mini ghost">Číst manifest</a>
+      <a href="#podepsat" class="btn-mini primary">Podepsat manifest →</a>
+    </div>
+  </div>
+</header>
 
 <main>
 
@@ -610,6 +697,15 @@ async function loadCount() {
   }
 }
 window.addEventListener('load', loadCount);
+
+// === STICKY HEADER (zobrazí se po prokrolování hero) ===
+const heroSection = document.querySelector('section.first');
+if (heroSection) {
+  const headerIO = new IntersectionObserver(([entry]) => {
+    document.body.classList.toggle('scrolled-past-hero', !entry.isIntersecting);
+  }, { threshold: 0, rootMargin: '-40px 0px 0px 0px' });
+  headerIO.observe(heroSection);
+}
 
 // === REVEAL ON SCROLL ===
 // rootMargin spustí animaci 240px před tím, než sekce reálně vstoupí do viewportu,
