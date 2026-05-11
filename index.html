@@ -464,14 +464,14 @@ footer a:hover { color: var(--fg); }
 <!-- 1. HEADLINE + COUNTER -->
 <section class="headline first">
   <div class="wrap">
-    <h1>Fandím<br><span class="accent">slušně.</span></h1>
+    <h1>Fandíme<br><span class="accent">slušně.</span></h1>
     <p class="lead">Manifest sportovních nadšenců, kteří chtějí kulturu fandění posouvat dopředu.</p>
     <div class="hero-actions">
       <a href="#podepsat" class="btn btn-primary">Podepsat manifest →</a>
       <a href="#manifest" class="btn btn-ghost">Číst manifest</a>
     </div>
     <div class="hero-counter">
-      <div class="counter-num" id="counter">2 137</div>
+      <div class="counter-num" id="counter">0</div>
       <div class="counter-label">Fanoušků z celé ČR už podepsalo</div>
     </div>
   </div>
@@ -601,7 +601,7 @@ async function loadCount() {
     const { count } = await res.json();
     setTimeout(() => animateTo(count), 400);
   } catch {
-    setTimeout(() => animateTo(2137), 400);
+    setTimeout(() => animateTo(0), 400);
   }
 }
 window.addEventListener('load', loadCount);
