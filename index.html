@@ -647,6 +647,7 @@ form.addEventListener('submit', async (e) => {
     const result = await res.json();
     if (!res.ok) throw new Error(result.error || 'Nepodařilo se odeslat podpis.');
 
+    document.querySelector('#podepsat h2').style.display = 'none';
     document.getElementById('formFields').style.display = 'none';
     document.getElementById('successBox').classList.add('is-visible');
 
