@@ -42,6 +42,11 @@ export default async function handler(req, res) {
       });
     }
 
+    const subscriberData = { email, name: firstName };
+    if (surname) subscriberData.surname = surname;
+    if (city) subscriberData.city = city;
+    if (message) subscriberData.custom_fields = { message };
+
     const ecomailRes = await fetch(
       `${ECOMAIL_BASE}/lists/${ECOMAIL_LIST_ID}/subscribe`,
       {
@@ -51,13 +56,7 @@ export default async function handler(req, res) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          subscriber_data: {
-            email,
-            name: firstName,
-            surname,
-            city,
-            custom_fields: { message },
-          },
+          subscriber_data: subscriberData,
           update_existing: true,
           skip_confirmation: true,
         }),
