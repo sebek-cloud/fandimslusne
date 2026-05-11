@@ -66,6 +66,35 @@ export default async function handler(req, res) {
     if (!ecomailRes.ok) {
       const text = await ecomailRes.text().catch(() => '');
       console.error('Ecomail error', ecomailRes.status, text);
+
+      // 4xx → klientská chyba (neplatný mail apod.) → předáme user-friendly hlášku
+      if (ecomailRes.status >= 400 && ecomailRes.status < 500) {
+        let parsed = null;
+        try { parsed = JSON.parse(text); } catch {}
+
+        let firstField = '';
+        let firstMsg = '';
+        if (parsed?.errors && typeof parsed.errors === 'object') {
+          firstField = Object.keys(parsed.errors)[0] || '';
+          const v = parsed.errors[firstField];
+          firstMsg = Array.isArray(v) ? v[0] : (typeof v === 'string' ? v : '');
+        }
+        const topMsg = typeof parsed?.message === 'string' ? parsed.message : '';
+        const haystack = (firstField + ' ' + firstMsg + ' ' + topMsg).toLowerCase();
+
+        let userMsg = 'Údaje se nepodařilo přijmout. Zkontroluj prosím vyplněné pole.';
+        if (haystack.includes('email') || haystack.includes('e-mail')) {
+          userMsg = 'E-mail nemá platný tvar. Zkontroluj ho prosím a zkus to znovu.';
+        } else if (firstMsg) {
+          userMsg = firstMsg;
+        } else if (topMsg) {
+          userMsg = topMsg;
+        }
+
+        return res.status(400).json({ error: userMsg });
+      }
+
+      // 5xx → server problém
       return res.status(502).json({
         error: 'Nepodařilo se uložit podpis. Zkuste to prosím za chvíli.',
       });
