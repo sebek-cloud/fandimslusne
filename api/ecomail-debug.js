@@ -19,7 +19,9 @@ const AUTH_VARIANTS = [
   { name: 'X-Api-Key', headers: { 'X-Api-Key': ECOMAIL_API_KEY } },
 ];
 
-async function probe(url, authName, headers) {
+async function probe(url, authName, headers, timeoutMs = 4000) {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), timeoutMs);
   try {
     const r = await fetch(url, {
       method: 'GET',
@@ -29,6 +31,7 @@ async function probe(url, authName, headers) {
         Accept: 'application/json',
         'User-Agent': 'fandimslusne-debug/1.0',
       },
+      signal: ctrl.signal,
     });
     const ct = r.headers.get('content-type') || '';
     const text = await r.text();
@@ -38,10 +41,12 @@ async function probe(url, authName, headers) {
       status: r.status,
       contentType: ct,
       isJson: ct.includes('application/json'),
-      bodyPreview: text.slice(0, 300),
+      bodyPreview: text.slice(0, 250),
     };
   } catch (err) {
-    return { url, auth: authName, error: String(err).slice(0, 200) };
+    return { url, auth: authName, error: String(err).slice(0, 150) };
+  } finally {
+    clearTimeout(timer);
   }
 }
 
@@ -50,7 +55,6 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Missing ECOMAIL_API_KEY' });
   }
 
-  // Filtruj podle ?auth=key|bearer|xapi (jinak jen 'key')
   const which = (req.query?.auth || 'key').toLowerCase();
   const variants =
     which === 'all'
@@ -61,15 +65,18 @@ export default async function handler(req, res) {
       ? AUTH_VARIANTS.filter((v) => v.name === 'X-Api-Key')
       : AUTH_VARIANTS.filter((v) => v.name === 'key');
 
-  const results = [];
+  // Spustit všechny probes paralelně
+  const tasks = [];
   for (const variant of variants) {
     for (const u of URLS) {
-      results.push(await probe(u, variant.name, variant.headers));
+      tasks.push(probe(u, variant.name, variant.headers));
     }
   }
+  const results = await Promise.all(tasks);
 
-  // Vrať jen JSON odpovědi + non-404 odpovědi (zajímavé) zvlášť
-  const interesting = results.filter((r) => r.isJson || (r.status && r.status !== 404));
+  const interesting = results.filter(
+    (r) => r.isJson || (r.status && r.status !== 404 && r.status !== 405)
+  );
 
   return res.status(200).json({
     keyPrefix: ECOMAIL_API_KEY ? ECOMAIL_API_KEY.slice(0, 6) + '...' : null,
@@ -77,6 +84,7 @@ export default async function handler(req, res) {
     keyLength: ECOMAIL_API_KEY ? ECOMAIL_API_KEY.length : 0,
     configuredListId: ECOMAIL_LIST_ID,
     authVariantTested: which,
+    totalProbes: results.length,
     interesting,
     all: results,
   });
