@@ -5,4 +5,4 @@ export const redis = new Redis({
   token: process.env.fandimslusne_counter_KV_REST_API_TOKEN,
 });
 
-export const BASE_COUNT = parseInt(process.env.COUNT_BASE || '2137', 10);
+export const BASE_COUNT = parseInt(process.env.COUNT_BASE || '0', 10);
