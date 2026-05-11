@@ -447,8 +447,8 @@ footer a:hover { color: var(--fg); }
 /* ============ RESPONSIVE ============ */
 @media (max-width: 600px) {
   .wrap { padding: 0 20px; }
-  section { padding: 70px 0; }
-  section.first { padding-top: 110px; }
+  section { padding: 48px 0; }
+  section.first { padding-top: 96px; padding-bottom: 32px; }
   .text-section .points > li {
     grid-template-columns: 56px 1fr;
     gap: 16px;
@@ -612,9 +612,11 @@ async function loadCount() {
 window.addEventListener('load', loadCount);
 
 // === REVEAL ON SCROLL ===
+// rootMargin spustí animaci 240px před tím, než sekce reálně vstoupí do viewportu,
+// aby uživatel neviděl prázdné místo mezi sekcemi (hlavně na mobilu).
 const io = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-}, { threshold: 0.12 });
+}, { threshold: 0, rootMargin: '0px 0px 240px 0px' });
 document.querySelectorAll('section').forEach(el => {
   el.classList.add('reveal'); io.observe(el);
 });
