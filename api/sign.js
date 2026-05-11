@@ -2,6 +2,7 @@ import { redis, BASE_COUNT } from './_redis.js';
 
 const ECOMAIL_API_KEY = process.env.ECOMAIL_API_KEY;
 const ECOMAIL_LIST_ID = process.env.ECOMAIL_LIST_ID;
+const ECOMAIL_BASE = 'https://api2.ecomailapp.cz';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default async function handler(req, res) {
@@ -10,19 +11,12 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // Env var sanity check
   if (!ECOMAIL_API_KEY || !ECOMAIL_LIST_ID) {
     console.error('Missing env vars', {
       hasKey: !!ECOMAIL_API_KEY,
       hasList: !!ECOMAIL_LIST_ID,
     });
-    return res.status(500).json({
-      error: 'Server config error.',
-      _debug: {
-        hasKey: !!ECOMAIL_API_KEY,
-        hasList: !!ECOMAIL_LIST_ID,
-      },
-    });
+    return res.status(500).json({ error: 'Server config error.' });
   }
 
   const body = req.body || {};
@@ -48,38 +42,33 @@ export default async function handler(req, res) {
       });
     }
 
-    const ecomailUrl = `https://server.ecomailapp.cz/api/v2/lists/${ECOMAIL_LIST_ID}/subscribe`;
-    const ecomailPayload = {
-      subscriber_data: {
-        email,
-        name: firstName,
-        surname,
-        city,
-        custom_fields: { message },
-      },
-      update_existing: true,
-      skip_confirmation: true,
-    };
-
-    const ecomailRes = await fetch(ecomailUrl, {
-      method: 'POST',
-      headers: {
-        key: ECOMAIL_API_KEY,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(ecomailPayload),
-    });
+    const ecomailRes = await fetch(
+      `${ECOMAIL_BASE}/lists/${ECOMAIL_LIST_ID}/subscribe`,
+      {
+        method: 'POST',
+        headers: {
+          key: ECOMAIL_API_KEY,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          subscriber_data: {
+            email,
+            name: firstName,
+            surname,
+            city,
+            custom_fields: { message },
+          },
+          update_existing: true,
+          skip_confirmation: true,
+        }),
+      }
+    );
 
     if (!ecomailRes.ok) {
       const text = await ecomailRes.text().catch(() => '');
       console.error('Ecomail error', ecomailRes.status, text);
       return res.status(502).json({
         error: 'Nepodařilo se uložit podpis. Zkuste to prosím za chvíli.',
-        _debug: {
-          url: ecomailUrl,
-          status: ecomailRes.status,
-          body: text.slice(0, 500),
-        },
       });
     }
 
@@ -91,6 +80,6 @@ export default async function handler(req, res) {
     return res.status(200).json({ count: Number(newCount) });
   } catch (err) {
     console.error('sign handler error', err);
-    return res.status(500).json({ error: 'Server error.', _debug: String(err).slice(0, 500) });
+    return res.status(500).json({ error: 'Server error.' });
   }
 }
