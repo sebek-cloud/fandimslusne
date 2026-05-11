@@ -574,20 +574,38 @@ footer a:hover { color: var(--fg); }
 </footer>
 
 <script>
-// counter animation
-const target = 2137;
-const el = document.getElementById('counter');
-let current = 0;
-const step = Math.max(1, Math.round(target / 80));
+// === COUNTER ===
+const counterEl = document.getElementById('counter');
 const fmt = n => n.toLocaleString('cs-CZ').replace(/,/g, ' ');
-function tick() {
-  current = Math.min(target, current + step);
-  if (el) el.textContent = fmt(current);
-  if (current < target) requestAnimationFrame(tick);
-}
-window.addEventListener('load', () => setTimeout(tick, 400));
 
-// reveal on scroll
+function animateTo(target, fromZero = true) {
+  if (!counterEl) return;
+  let current = fromZero ? 0 : (parseInt(counterEl.textContent.replace(/\D/g, ''), 10) || 0);
+  if (current >= target) {
+    counterEl.textContent = fmt(target);
+    return;
+  }
+  const step = Math.max(1, Math.round((target - current) / 80));
+  function tick() {
+    current = Math.min(target, current + step);
+    counterEl.textContent = fmt(current);
+    if (current < target) requestAnimationFrame(tick);
+  }
+  tick();
+}
+
+async function loadCount() {
+  try {
+    const res = await fetch('/api/count', { cache: 'no-store' });
+    const { count } = await res.json();
+    setTimeout(() => animateTo(count), 400);
+  } catch {
+    setTimeout(() => animateTo(2137), 400);
+  }
+}
+window.addEventListener('load', loadCount);
+
+// === REVEAL ON SCROLL ===
 const io = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
 }, { threshold: 0.12 });
@@ -595,17 +613,49 @@ document.querySelectorAll('section').forEach(el => {
   el.classList.add('reveal'); io.observe(el);
 });
 
-// form submit (mock — backend přijde v další fázi)
+// === FORM SUBMIT (live API → Ecomail + counter) ===
 const form = document.getElementById('signForm');
-form.addEventListener('submit', (e) => {
+const submitBtn = form.querySelector('.submit-btn');
+const originalBtnText = submitBtn.textContent;
+
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  if (!form.name.value.trim() || !form.email.value.trim() || !form.gdpr.checked) {
-    alert('Vyplň prosím jméno, e-mail a souhlas.');
+
+  const name = form.name.value.trim();
+  const email = form.email.value.trim();
+
+  if (!name || !email || !form.gdpr.checked) {
+    alert('Vyplň prosím jméno, e-mail a souhlas se zpracováním údajů.');
     return;
   }
-  document.getElementById('formFields').style.display = 'none';
-  document.getElementById('successBox').classList.add('is-visible');
-  if (el) el.textContent = fmt(target + 1);
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Odesílám…';
+
+  try {
+    const res = await fetch('/api/sign', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name,
+        email,
+        city: form.city.value.trim(),
+        message: form.message.value.trim(),
+      }),
+    });
+
+    const result = await res.json();
+    if (!res.ok) throw new Error(result.error || 'Nepodařilo se odeslat podpis.');
+
+    document.getElementById('formFields').style.display = 'none';
+    document.getElementById('successBox').classList.add('is-visible');
+
+    if (result.count) animateTo(result.count, false);
+  } catch (err) {
+    alert(err.message || 'Něco se nepovedlo, zkuste to prosím za chvíli.');
+    submitBtn.disabled = false;
+    submitBtn.textContent = originalBtnText;
+  }
 });
 </script>
 
